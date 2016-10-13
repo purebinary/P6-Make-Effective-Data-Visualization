@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+
+  <style>
+    h2 {
+      text-align: center;
+    }
+
+  </style>
+
+    <script type="text/javascript">
+      function draw(data) {
+      
+      /*
+        D3.js setup code
+      */
+
+         // "use strict";
+          var margin = 75,
+              width = 960 - margin,
+              padding = 60,
+              height = 600 - margin;
+
+          d3.select("body")
+            .append("h2")
+              .text("Prosper Loan");
+
+          var svg = d3.select("body")
+                      .append("svg")
+                      .attr("width", width + margin)
+                      .attr("height", height + margin);
+            
+
+          function year_avg(leaves) {
+                var avg_borrower_rate = d3.mean(leaves, function(d) {
+                    return d['BorrowerRate'];
+                });
+
+                return {
+                  'Avg_Borrower_Rate' : avg_borrower_rate
+
+                };
+          }
+
+          var nested = d3.nest()
+                           .key(function(d) {
+                              return d['LoanOriginationDate'].getUTCFullYear();
+                           })
+                           .rollup(year_avg)
+                           .entries(data);
+          
+          var avg_data = nested.map(function(d) {
+            var obj = {};
+            obj['Year'] = d['key'];
+            obj['Avg_Borrower_Rate'] = d.values['Avg_Borrower_Rate'];
+            return obj;
+          });
+
+          var x =  d3.scale.linear()
+                          .domain(d3.extent(nested, function(d){
+                                      return d['key'];
+                          }))
+                          .range([padding, width]);
+
+          var y = d3.scale.linear()
+                          .domain([0, d3.max(nested, function(d) {
+                                      return d.values['Avg_Borrower_Rate'];
+                          })])
+                          .range([height,padding]);
+
+          var xAxis = d3.svg.axis()
+                            .scale(x)
+                            .orient("bottom");
+
+
+          var yAxis = d3.svg.axis()
+                        .scale(y)
+                        .orient("left");
+
+          var line1 = d3.svg.line()
+                           
+                           .x(function(d) {
+                                return x(d['key']);
+                           })
+                           .y(function(d) {
+                                return y(d.values['Avg_Borrower_Rate']);
+                           })
+                           .interpolate("cardinal");
+      
+          var linechart = svg.append("path")
+                             .attr("class", "chart")
+                             .attr("d", line1(nested))
+                             .attr("stroke", "steelblue")
+                             .attr("stroke-width", "3")
+                             .attr("fill", "none");
+
+
+          var totalLength = linechart.node().getTotalLength();
+
+          linechart
+              .attr("stroke-dasharray", totalLength + " " + totalLength)
+              .attr("stroke-dashoffset", totalLength)
+              .transition()
+                  .duration(3000)
+                  .delay(1000)
+                  .ease("linear")
+                  .attr("stroke-dashoffset", 0)
+              .transition()
+                  .duration(2000)
+                  .attr("stroke", "black")
+                  .attr("stroke-width", 2);
+
+
+         
+                             
+          
+          svg.selectAll(".chart")
+             .on("mouseover", function(){
+                          d3.select(this)
+                            .attr("stroke", "blue")
+                            .attr("stroke-width", 3);
+                          })
+             .on("mouseout", function() {
+                          d3.select(this)
+                            .attr("stroke", "black")
+                            .attr("stroke-width", 2);
+                          });                   
+
+          var circles = svg.append("g")
+                           .attr("id", "circles")
+                           .selectAll("circle")
+                           .data(nested)
+                           .enter()
+                           .append("circle");
+
+          circles.attr("cx", function(d){
+                           return x(d['key']);
+                 })
+                 .attr("cy", function(d){
+                           return y(d.values['Avg_Borrower_Rate']);
+                 })
+                 .attr("r", 2);
+
+          svg.append("g")
+             .attr("class", "x axis")
+             .attr("transform", "translate(0, "+ height+ ")")
+             .call(xAxis)
+
+          svg.append("g")
+             .attr("class", "y axis")
+             .attr("transform", "translate("+padding+", 0)")
+             .call(yAxis) 
+      };
+
+      </script>
+  </head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the TSV file
+    and pass the contents of it to the draw function
+    */
+  var format = d3.time.format("%Y-%m-%d %H:%M:%S");
+
+  d3.csv("./data/prosperLoanData.csv", function(d) {
+    d['BorrowerRate'] = +d['BorrowerRate'];
+    d['LoanOriginationDate'] = format.parse(d['LoanOriginationDate'])
+    return d;
+  }, draw);  
+  
+  </script>
+</body>
+</html>
