@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Anual Prosper Loan Data Visulization</title>
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="draw.js"></script>
+  <link rel="stylesheet" type="text/css" href="draw.css" />   
+</head>
+<body>
+  <div id="tooltip" class="hidden">
+      <p><strong><span id="value">100</span></strong></p>
+      <p>  Click to select</p>
+  </div>
+  <script type="text/javascript">
+    d3.select("body")
+      .append("h1")
+        .text("2005 - 2014 Anual Prosper Loan Data Visulization"); 
+    
+    var div = d3.select("body")
+                .append("div")
+                .attr("class", "table")
+                .attr("width", 960)
+                .attr("height",80);
+                  
+    var side_text = div.append("side_text")
+                     .attr("class", "side_text")
+                     .append("h2")
+                        .text("Prosper Loan Line Chart");
+                        
+    d3.select(".side_text")
+      .append("h2")
+      .attr("id", "subtitle")
+      .text("Current:");
+
+    d3.select(".side_text")
+      .append("p")
+      .text("Click table item or Line for detail");
+
+    var table = div.append("table");
+    var thead = table.append("thead");
+    var tbody = table.append("tbody");
+
+    //table cell data
+    var item = [
+      ['Average Borrower Rate', 'Total Loan Amount'],
+      ['Average Monthly Payment', 'Total Customer Payments'],
+      ['Average Monthly Income', 'Total Interest & Fees']
+      ];
+
+    // create the table header
+    thead.selectAll("th")
+         .data(["Average", "Total"])
+         .enter()
+         .append("th")
+         .text(function(d) {return d;});
+
+    // fill the table
+    // create rows
+    var tr = tbody.selectAll("tr")
+                  .data(item)
+                  .enter()
+                  .append("tr")
+    // cells
+    var td = tr.selectAll("td")
+               .data(function(d){return d;})
+               .enter()
+               .append("td")
+               .text(function(d) {return d;}) 
+  </script>
+</body>
+</html>

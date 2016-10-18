@@ -1,0 +1,106 @@
+    body {
+      font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+      font-size: 14px;
+    }
+
+    h1 {
+      text-align: center;
+      left: 500px;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: lightgrey;
+        stroke-width: 1;
+        shape-rendering: crispEdges;
+    }
+
+    #tooltip {
+        position: absolute;
+        width: auto;
+        height: auto;
+        padding: 6px;
+        line-height: 2;
+        text-align: center;
+        background-color: powderblue;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+    }
+
+    #tooltip.hidden {
+        display: none;
+    }
+
+    #tooltip p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .circle_tooltip {
+          position: absolute;
+          width: auto;
+          height: auto;
+          padding: 6px;
+          text-align: center;
+          background-color: powderblue;
+          -webkit-border-radius: 10px;
+          -moz-border-radius: 10px;
+          border-radius: 10px;
+          -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+          -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+          box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+          pointer-events: none;
+    }
+
+    .side_text {
+          position: relative;
+          left: 540px;
+          top: 15px;
+          text-align: left;
+          line-height: 1;
+    }
+
+    table {
+          position: fixed;
+          left: 160px;
+          top: 70px;
+          margin-top: 15px;
+    }
+
+    th, td {
+              font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+              font-size:1em;
+              padding-left:7px;
+              padding-right:7px;
+              padding-top:4px;
+              padding-bottom:4px;
+              vertical-align:middle;
+              text-align:left;
+    }
+
+    th {
+        color:white;
+        background-color:steelblue;
+    }
+
+    td {
+        color: darkslateblue;
+        background-color:powderblue;
+    }
+
+    td.rowkey {
+        text-align:left;
+    }
+
+    td:hover {
+        color:#000000;
+        background-color:#E0E0E0;
+        text-decoration: underline;
+    }
