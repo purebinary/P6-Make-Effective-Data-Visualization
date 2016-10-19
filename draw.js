@@ -28,7 +28,7 @@ function draw(data) {
           .transition()
               .duration(1000)
               .delay(num*3000)
-          .text("Current:  " + lookup[index]);
+          .text("Current:  " + "Average "+ lookup[index]);
         
         // Define line
         var line = d3.svg.line()
@@ -115,7 +115,7 @@ function draw(data) {
           .transition()
               .duration(800)
               .delay(500)
-          .text("Current:  " + lookup[index]);
+          .text("Current:  " + "Average "+ lookup[index]);
     }
     //Mouse click event function
     function clicked(data, index) {
@@ -196,15 +196,15 @@ function draw(data) {
               return d['MonthlyLoanPayment']
           });
 
-          var total_amount = d3.sum(leaves, function(d) {
+          var avg_loan_amount = d3.mean(leaves, function(d) {
               return d['LoanOriginalAmount'];
           }); 
 
-          var total_payment = d3.sum(leaves, function(d) {
+          var avg_customer_payment = d3.mean(leaves, function(d) {
               return d['LP_CustomerPayments'];
           }); 
 
-          var total_interest = d3.sum(leaves, function(d) {
+          var avg_interest = d3.mean(leaves, function(d) {
               return d['LP_InterestandFees'];
           });
 
@@ -212,9 +212,9 @@ function draw(data) {
             'Avg_Borrower_Rate' : avg_borrower_rate * 100,
             'Avg_Monthly_Income' : avg_monthly_income,
             'Avg_Monthly_Payment' : avg_monthly_payment,
-            'Total_Amount' : total_amount / 1000000.0,
-            'Total_Payment': total_payment / 100000.0,
-            'Total_Interest': total_interest / 1000000.0,
+            'Avg_Loan_Amount' : avg_loan_amount,
+            'Avg_Customer_Payment': avg_customer_payment,
+            'Avg_Interest': avg_interest
           };
     }
 
@@ -231,12 +231,12 @@ function draw(data) {
 
     //line chart title mapping
     var lookup = {
-            Avg_Borrower_Rate: 'Average Borrower Rate (%)',
-            Avg_Monthly_Payment: 'Average Monthly Payment (USD)',
-            Avg_Monthly_Income: 'Average Monthly Income (USD)',
-            Total_Amount: 'Total Loan Amount (M.USD)',
-            Total_Payment: 'Total Customer Payments (M.USD)',
-            Total_Interest: 'Total Interest & Fees (M.USD)',
+            Avg_Borrower_Rate: 'Borrower Rate (%)',
+            Avg_Monthly_Payment: 'Monthly Payment ($)',
+            Avg_Monthly_Income: 'Monthly Income ($)',
+            Avg_Loan_Amount: 'Loan Amount ($)',
+            Avg_Customer_Payment: 'Customer Payments ($)',
+            Avg_Interest: 'Interest & Fees ($)',
            };
     
     //Nest entries by year
@@ -449,7 +449,7 @@ function draw(data) {
 var format = d3.time.format("%Y-%m-%d %H:%M:%S");
 
 // Get the data
-d3.csv("./data/LoanData.csv", function(d) {
+d3.csv("./data/anual_ProsperLoanData.csv", function(d) {
                         d['BorrowerRate'] = +d['BorrowerRate'];
                         d['MonthlyLoanPayment'] = +d['MonthlyLoanPayment'];
                         d['StatedMonthlyIncome'] = +d['StatedMonthlyIncome'];

@@ -43,14 +43,14 @@
 
     //table cell data
     var item = [
-      ['Average Borrower Rate', 'Total Loan Amount'],
-      ['Average Monthly Payment', 'Total Customer Payments'],
-      ['Average Monthly Income', 'Total Interest & Fees']
+      ['Borrower Rate', 'Loan Amount'],
+      ['Monthly Payment', 'Customer Payments'],
+      ['Monthly Income', 'Interest & Fees']
       ];
 
     // create the table header
     thead.selectAll("th")
-         .data(["Average", "Total"])
+         .data(["Average"," "])
          .enter()
          .append("th")
          .text(function(d) {return d;});

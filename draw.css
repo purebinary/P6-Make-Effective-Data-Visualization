@@ -20,7 +20,7 @@
         position: absolute;
         width: auto;
         height: auto;
-        padding: 6px;
+        padding: 8px;
         line-height: 2;
         text-align: center;
         background-color: powderblue;
@@ -47,7 +47,7 @@
           position: absolute;
           width: auto;
           height: auto;
-          padding: 6px;
+          padding: 8px;
           text-align: center;
           background-color: powderblue;
           -webkit-border-radius: 10px;
@@ -71,21 +71,22 @@
           position: fixed;
           left: 160px;
           top: 70px;
+          width: 350px;
           margin-top: 15px;
     }
 
     th, td {
-              font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
-              font-size:1em;
-              padding-left:7px;
-              padding-right:7px;
-              padding-top:4px;
-              padding-bottom:4px;
-              vertical-align:middle;
-              text-align:left;
+            font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
+            font-size:1em;
+            padding-left:7px;
+            padding-right:7px;
+            padding-top:4px;
+            padding-bottom:4px;
+            vertical-align:middle;
+            text-align:left;
     }
 
-    th {
+    th {       
         color:white;
         background-color:steelblue;
     }
