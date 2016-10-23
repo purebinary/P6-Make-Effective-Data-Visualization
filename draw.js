@@ -174,10 +174,10 @@ function draw(data) {
                  .attr("fill", "steelblue")
                  .transition()
                     .duration(3000)
-                    .delay(1000)
-                 .text(function(d) {
-                        return lookup[index] + Math.round(d.values[index]);
-                      });
+                    .delay(1000);
+                 // .text(function(d) {
+                 //        return lookup[index] + Math.round(d.values[index]);
+                //    });
 
           isClick = true;
           pre_index = index;
@@ -370,7 +370,7 @@ function draw(data) {
                                  .text(lookup[pre_index]);
 
                               if (isClick) {
-                                  sw_text += lookup[pre_index];                                        
+                                  sw_text += "Average " + lookup[pre_index];                                        
                               }
                               //update subtile
                               d3.select("#subtitle")

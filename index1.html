@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Prosper Loan Data Visualization</title>
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="draw1.js"></script>
+  <link rel="stylesheet" type="text/css" href="draw1.css" />   
+</head>
+<body>
+  <div id="tooltip" class="hidden">
+      <p><strong><span id="value">100</span></strong></p>
+      <p>  Click for On/Off </p>
+  </div>
+  <script type="text/javascript">
+    d3.select("body")
+      .append("h1")
+        .text("Who got the Lowest Borrower Rate from Prosper"); 
+    
+    var div = d3.select("body")
+                .append("div")
+                .attr("class", "table")
+                .attr("width", 960)
+                .attr("height",80);
+
+    var side_text = div.append("side_text")
+                     .attr("class", "side_text")
+                     .append("h2")
+                        .text("Quarterly average Borrwer Rate");
+
+    d3.select(".side_text")
+      .append("h3")
+      .attr("id", "subtitle")
+      .text("Income")
+      .style("opacity", 0);
+
+    d3.select(".side_text")
+      .append("p")
+      .text("Click Cell or Line for detail")
+      .style("opacity", 0);
+
+    
+
+    var table = div.append("table");
+    var thead = table.append("thead");
+    var tbody = table.append("tbody");
+
+    //table cell data
+    var item = [
+      ["Not employed", "$1-24,999"],
+      ["$25,000-49,999", "$50,000-74,999"],
+      ["$75,000-99,999",  "$100,000+"]
+      ];
+
+
+    // create the table header
+    thead.selectAll("th")
+         .data(["Income Range"," "])
+         .enter()
+         .append("th")
+         .text(function(d) {return d;});
+
+    // fill the table
+    // create rows
+    var tr = tbody.selectAll("tr")
+                  .data(item)
+                  .enter()
+                  .append("tr")
+    // cells
+    var td = tr.selectAll("td")
+               .data(function(d){return d;})
+               .enter()
+               .append("td")
+               .text(function(d) {return d;}) 
+  </script>
+</body>
+</html>
