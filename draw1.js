@@ -499,4 +499,3 @@ d3.csv("./data/quarter_ProsperLoanData.csv", function(d) {
                         d['BorrowerRate'] = Math.round(+d['BorrowerRate']*1000) / 10; 
                         return d;
 }, draw);  
-
