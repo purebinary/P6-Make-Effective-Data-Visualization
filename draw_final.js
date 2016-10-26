@@ -58,13 +58,13 @@ function draw(data) {
     
     // Define Update line title function
     function updatechart(id) {
-        var subtitle = nested[parseInt(id[1])].key
+        var subtitle = nested[parseInt(id[1])].key;
         d3.select("#subtitle")
           .transition()
               .duration(800)
               .delay(500)
           .text("Income Range: " + subtitle)
-          .style("opacity", .9)
+          .style("opacity", .9);
     }
 
     // Define Mouse click function
